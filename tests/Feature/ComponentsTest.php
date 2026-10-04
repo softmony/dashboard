@@ -38,6 +38,38 @@ it('marks the matching sidebar item active', function () {
     expect($this->get('/pages')->getContent())->toBe('active');
 });
 
+it('aligns the brand block with the header and swaps in a logo', function () {
+    Route::get('/dashboard', fn () => 'ok')->name('dashboard');
+
+    config([
+        'app.name' => 'Acme',
+        'dashboard.brand_route' => 'dashboard',
+        'dashboard.brand_subtitle' => null,
+        'dashboard.brand_logo' => null,
+        'dashboard.nav' => [],
+        'dashboard.vite' => null,
+    ]);
+
+    $sidebar = Blade::render('<x-admin.sidebar />');
+    $layout = view('dashboard::layouts.admin', ['slot' => 'Body'])->render();
+
+    expect($sidebar)->toContain('h-16')->toContain('>Acme<')->not->toContain('text-slate-400')
+        ->and($layout)->toContain('h-16');
+
+    config([
+        'dashboard.brand_subtitle' => 'Admin',
+        'dashboard.brand_logo' => 'https://cdn.example/logo.svg',
+    ]);
+
+    $sidebar = Blade::render('<x-admin.sidebar />');
+
+    expect($sidebar)
+        ->toContain('https://cdn.example/logo.svg')
+        ->toContain('alt="Acme"')
+        ->toContain('Admin')
+        ->not->toContain('>Acme<');
+});
+
 it('renders the admin building blocks', function () {
     $errors = new ViewErrorBag;
     $errors->put('default', new MessageBag([

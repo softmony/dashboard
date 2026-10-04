@@ -13,7 +13,11 @@ return [
     /** Named route after a successful login. Falls back to brand_route. */
     'home_route' => null,
 
+    /** Text under the brand. Null renders a single row. */
     'brand_subtitle' => 'Admin',
+
+    /** Image URL shown instead of the app name. Null keeps the name. */
+    'brand_logo' => null,
 
     'guest_tagline' => 'Private admin',
 

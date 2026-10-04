@@ -1,11 +1,23 @@
 <aside class="flex w-56 shrink-0 flex-col bg-slate-900 text-slate-200">
-    <div class="border-b border-slate-700 px-4 py-4">
-        <a href="{{ $brandHref }}" class="text-sm font-semibold tracking-wide text-white" wire:navigate>
-            {{ config('app.name') }}
+    <div class="flex h-16 items-center border-b border-slate-700 px-4">
+        <a
+            href="{{ $brandHref }}"
+            wire:navigate
+            @class([
+                'flex min-w-0 text-white',
+                'flex-col items-start justify-center gap-0.5' => $subtitle,
+                'items-center' => ! $subtitle,
+            ])
+        >
+            @if ($logo)
+                <img src="{{ $logo }}" alt="{{ config('app.name') }}" class="h-8 w-auto max-w-full object-contain">
+            @else
+                <span class="truncate text-sm font-semibold tracking-wide">{{ config('app.name') }}</span>
+            @endif
+            @if ($subtitle)
+                <span class="truncate text-xs leading-tight text-slate-400">{{ $subtitle }}</span>
+            @endif
         </a>
-        @if ($subtitle)
-            <p class="mt-0.5 text-xs text-slate-400">{{ $subtitle }}</p>
-        @endif
     </div>
     <nav class="flex-1 space-y-1 px-2 py-3 text-sm">
         @foreach ($nav as $item)

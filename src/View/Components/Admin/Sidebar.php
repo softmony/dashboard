@@ -13,15 +13,20 @@ class Sidebar extends Component
 
     public ?string $subtitle;
 
+    public ?string $logo;
+
     /** @var list<array{label: string, href: string, is_active: bool}> */
     public array $nav;
 
     public function __construct()
     {
         $brandRoute = config('dashboard.brand_route');
+        $subtitle = config('dashboard.brand_subtitle');
+        $logo = config('dashboard.brand_logo');
 
         $this->brandHref = is_string($brandRoute) && $brandRoute !== '' ? route($brandRoute) : '#';
-        $this->subtitle = config('dashboard.brand_subtitle');
+        $this->subtitle = is_string($subtitle) && $subtitle !== '' ? $subtitle : null;
+        $this->logo = is_string($logo) && $logo !== '' ? $logo : null;
         $this->nav = $this->navItems();
     }
 

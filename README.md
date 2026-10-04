@@ -78,7 +78,8 @@ Route::middleware(['guest', 'throttle:login'])->group(function () {
 |---|---|
 | `brand_route` | Sidebar brand link |
 | `home_route` | Redirect after login. Falls back to `brand_route` |
-| `brand_subtitle` | Text under the app name |
+| `brand_subtitle` | Text under the brand. `null` keeps a single row |
+| `brand_logo` | Image URL shown instead of the app name |
 | `guest_tagline` | Sign-in screen subtitle |
 | `logout_route` | Account menu logout |
 | `vite` | Styles and scripts the layouts load |
